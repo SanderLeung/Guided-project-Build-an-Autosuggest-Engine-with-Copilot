@@ -14,15 +14,19 @@ Trie dictionary = InitializeTrie(words);
 // DeleteWord();
 // GetSpellingSuggestions();
 
+// This method initializes a Trie with the given words.
 Trie InitializeTrie(string[] words)
 {
+    // Create a new Trie instance.
     Trie trie = new Trie();
 
+    // Iterate over the words and insert them into the Trie.
     foreach (string word in words)
     {
+        // Insert the word into the Trie.
         trie.Insert(word);
     }
-
+    // Return the initialized Trie.
     return trie;
 }
 
@@ -36,12 +40,10 @@ void SearchWord()
         {
             break;
         }
-        /*
         if (input != null && dictionary.Search(input))
         {
             Console.WriteLine($"Found \"{input}\" in dictionary");
         }
-        */
         else
         {
             Console.WriteLine($"Did not find \"{input}\" in dictionary");
@@ -66,14 +68,12 @@ void DeleteWord()
         {
             break;
         }
-        /*
         if (input != null && dictionary.Search(input))
         {
             dictionary.Delete(input);
             Console.WriteLine($"Deleted \"{input}\" from dictionary\n");
             PrintTrie(dictionary);
         }
-        */
         else
         {
             Console.WriteLine($"Did not find \"{input}\" in dictionary");
@@ -198,9 +198,21 @@ void PrintTrie(Trie trie)
 {
     Console.WriteLine("The dictionary contains the following words:");
     List<string> words = trie.GetAllWords();
+    int counter = 0;
+    string[] lines = new string[5];
+    int maxLength = words.Max(word => word.Length); // Find the maximum length of the words
+
     foreach (string word in words)
     {
-        Console.Write($"{word}, ");
+        lines[counter] += word.PadRight(maxLength + 1); // Pad each word to the maximum length
+        counter++;
+        if (counter == 5)
+        {
+            counter = 0;
+        }
     }
-    Console.WriteLine();
+    foreach (string line in lines)
+    {
+        Console.WriteLine(line);
+    }
 }
